@@ -75,6 +75,7 @@ fun StickerAppContent(viewModel: StickerViewModel) {
             Toast.makeText(context, "Sticker pack added to WhatsApp!", Toast.LENGTH_SHORT).show()
         } else {
             val extras = result.data?.extras
+            @Suppress("DEPRECATION")
             val errorMsg = if (extras != null && !extras.isEmpty) {
                 extras.keySet().joinToString("\n") { key -> "$key: ${extras.get(key)}" }
             } else {

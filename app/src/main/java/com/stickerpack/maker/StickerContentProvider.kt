@@ -142,7 +142,7 @@ class StickerContentProvider : ContentProvider() {
                         if (packWithStickers.stickers.size >= 3) {
                             val p = packWithStickers.pack
                             cursor.addRow(
-                                arrayOf(
+                                arrayOf<Any?>(
                                     p.identifier,
                                     p.name,
                                     p.publisher,

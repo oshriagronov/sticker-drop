@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.stickerpack.maker.app-mergeDebugResources-54:/values-sl/values-sl.xml",
+            "outputFile": "com.stickerpack.maker.app-mergeDebugResources-52:/values-sl/values-sl.xml",
             "map": [
                 {
-                    "source": "/Users/oshriagronov/.gradle/caches/9.3.0/transforms/ba3ca4e314039325af2c381a24c17304/transformed/core-1.12.0/res/values-sl/values-sl.xml",
+                    "source": "/Users/oshriagronov/.gradle/caches/9.5.0/transforms/3535a83ba7aadedf0a12a7e391b0c06d/transformed/core-1.12.0/res/values-sl/values-sl.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/Users/oshriagronov/.gradle/caches/9.3.0/transforms/2d9cd90996237ca5978edb4d5b293548/transformed/ui-release/res/values-sl/values-sl.xml",
+                    "source": "/Users/oshriagronov/.gradle/caches/9.5.0/transforms/19a1b5b7725d3f788e593ce541bb0d02/transformed/ui-release/res/values-sl/values-sl.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "/Users/oshriagronov/.gradle/caches/9.3.0/transforms/a3ecd248bd25eefaa2aef8e6b1084db8/transformed/material3-release/res/values-sl/values-sl.xml",
+                    "source": "/Users/oshriagronov/.gradle/caches/9.5.0/transforms/213ae2b20e31f6407d8b35e00a30a546/transformed/material3-release/res/values-sl/values-sl.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -55,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "/Users/oshriagronov/.gradle/caches/9.3.0/transforms/bcf1b997120050e16b9e598d46f96e43/transformed/foundation-release/res/values-sl/values-sl.xml",
+                    "source": "/Users/oshriagronov/.gradle/caches/9.5.0/transforms/64eea2223796b614ca88adad39e331fd/transformed/foundation-release/res/values-sl/values-sl.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
