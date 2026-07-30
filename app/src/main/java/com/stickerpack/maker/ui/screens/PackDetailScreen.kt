@@ -71,11 +71,6 @@ fun PackDetailScreen(
                     IconButton(onClick = onBackClick) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
-                },
-                actions = {
-                    IconButton(onClick = { photoPickerLauncher.launch("image/*") }) {
-                        Icon(Icons.Default.AddPhotoAlternate, contentDescription = "Add Sticker", tint = GreenWhatsApp)
-                    }
                 }
             )
         },
@@ -208,18 +203,22 @@ fun PackDetailScreen(
                                 )
                             }
 
-                            // Delete button
-                            IconButton(
-                                onClick = { onDeleteSticker(sticker) },
+                            // Modern Delete Badge
+                            Box(
                                 modifier = Modifier
                                     .align(Alignment.TopEnd)
-                                    .size(28.dp)
+                                    .padding(6.dp)
+                                    .size(26.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFFFF3B30))
+                                    .clickable { onDeleteSticker(sticker) },
+                                contentAlignment = Alignment.Center
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Close,
-                                    contentDescription = "Delete",
-                                    tint = MaterialTheme.colorScheme.error,
-                                    modifier = Modifier.size(18.dp)
+                                    contentDescription = "Delete Sticker",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(15.dp)
                                 )
                             }
                         }

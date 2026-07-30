@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.stickerpack.maker.data.StickerPackWithStickers
@@ -59,7 +60,7 @@ fun PackListScreen(
                 title = {
                     Column {
                         Text(
-                            text = "WhatsApp Sticker Studio",
+                            text = "StickerDrop",
                             style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
                         )
                         Text(
@@ -123,24 +124,14 @@ fun PackListScreen(
                         style = MaterialTheme.typography.titleLarge
                     )
                     Text(
-                        text = "Create a new sticker pack or load an existing sticker pack from your device files to add stickers and export to WhatsApp.",
+                        text = "Tap '+ New Pack' at the bottom right to create a new pack, or load an existing pack from your device.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Button(
-                            onClick = onCreatePackClick,
-                            colors = ButtonDefaults.buttonColors(containerColor = GreenWhatsApp)
-                        ) {
-                            Icon(Icons.Default.Add, contentDescription = null)
-                            Spacer(Modifier.width(4.dp))
-                            Text("Create Pack")
-                        }
-                        OutlinedButton(onClick = onImportClick) {
-                            Icon(Icons.Default.FileOpen, contentDescription = null)
-                            Spacer(Modifier.width(4.dp))
-                            Text("Load Pack")
-                        }
+                    OutlinedButton(onClick = onImportClick) {
+                        Icon(Icons.Default.FileOpen, contentDescription = null)
+                        Spacer(Modifier.width(4.dp))
+                        Text("Load Pack")
                     }
                 }
             }
@@ -294,11 +285,15 @@ fun PackItemCard(
             // Action Row: Add Sticker & WhatsApp Export
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 OutlinedButton(
                     onClick = onAddStickerClick,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(44.dp),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Icon(
@@ -307,12 +302,21 @@ fun PackItemCard(
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text("Add Sticker")
+                    Text(
+                        text = "Add Sticker",
+                        style = MaterialTheme.typography.labelLarge,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
 
                 Button(
                     onClick = onExportToWhatsApp,
                     enabled = true,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(44.dp),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (isWhatsAppReady) GreenWhatsApp else MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
@@ -325,7 +329,13 @@ fun PackItemCard(
                         tint = Color.White
                     )
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text("Add / Update in WhatsApp", color = Color.White)
+                    Text(
+                        text = "Add to WhatsApp",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Color.White,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             }
         }

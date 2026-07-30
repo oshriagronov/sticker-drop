@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#25D366</color>
-    <string name="app_name">Sticker Pack Maker</string>
+    <string name="app_name">StickerDrop</string>
     <style name="Theme.StickerPackMaker" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
