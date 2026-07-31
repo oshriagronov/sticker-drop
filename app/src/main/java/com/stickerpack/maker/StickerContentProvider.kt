@@ -78,7 +78,7 @@ class StickerContentProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        val authority = (context?.packageName ?: "com.stickerpack.maker") + ".stickercontentprovider"
+        val authority = (context?.packageName ?: "com.stickerdrop.app") + ".stickercontentprovider"
         uriMatcher.addURI(authority, "metadata", METADATA)
         uriMatcher.addURI(authority, "metadata/*", METADATA_PACK)
         uriMatcher.addURI(authority, "stickers/*", STICKERS)
@@ -245,7 +245,7 @@ class StickerContentProvider : ContentProvider() {
     }
 
     override fun getType(uri: Uri): String? {
-        val authority = (context?.packageName ?: "com.stickerpack.maker") + ".stickercontentprovider"
+        val authority = (context?.packageName ?: "com.stickerdrop.app") + ".stickercontentprovider"
         return when (uriMatcher.match(uri)) {
             METADATA -> "vnd.android.cursor.dir/vnd.$authority.metadata"
             METADATA_PACK -> "vnd.android.cursor.item/vnd.$authority.metadata"

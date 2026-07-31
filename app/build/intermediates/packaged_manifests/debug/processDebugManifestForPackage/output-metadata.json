@@ -4,7 +4,7 @@
     "type": "PACKAGED_MANIFESTS",
     "kind": "Directory"
   },
-  "applicationId": "com.stickerpack.maker",
+  "applicationId": "com.stickerdrop.app",
   "variantName": "debug",
   "elements": [
     {

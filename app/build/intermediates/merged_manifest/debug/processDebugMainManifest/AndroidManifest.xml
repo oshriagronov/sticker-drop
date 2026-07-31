@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.stickerpack.maker"
+    package="com.stickerdrop.app"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -20,10 +20,10 @@
     </queries>
 
     <permission
-        android:name="com.stickerpack.maker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.stickerdrop.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.stickerpack.maker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.stickerdrop.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:allowBackup="true"
@@ -98,7 +98,7 @@
         <!-- Official WhatsApp Sticker ContentProvider -->
         <provider
             android:name="com.stickerpack.maker.StickerContentProvider"
-            android:authorities="com.stickerpack.maker.stickercontentprovider"
+            android:authorities="com.stickerdrop.app.stickercontentprovider"
             android:enabled="true"
             android:exported="true"
             android:readPermission="com.whatsapp.sticker.READ" />
@@ -106,7 +106,7 @@
         <!-- FileProvider for sharing .wastickers files -->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.stickerpack.maker.fileprovider"
+            android:authorities="com.stickerdrop.app.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -115,7 +115,7 @@
         </provider>
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.stickerpack.maker.androidx-startup"
+            android:authorities="com.stickerdrop.app.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

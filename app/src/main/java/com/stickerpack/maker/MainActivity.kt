@@ -150,9 +150,18 @@ fun StickerAppContent(
         } else {
             val extras = result.data?.extras
             @Suppress("DEPRECATION")
-            val isUserCancel = extras?.getBoolean("user_cancel", false) == true ||
-                    extras?.getString("user_cancel") == "true" ||
-                    (result.resultCode == Activity.RESULT_CANCELED && (extras == null || extras.isEmpty))
+            val isUserCancel = result.resultCode == Activity.RESULT_CANCELED && (
+                extras == null ||
+                extras.isEmpty ||
+                extras.getBoolean("user_cancelled", false) ||
+                extras.getBoolean("user_cancel", false) ||
+                extras.getString("user_cancelled") == "true" ||
+                extras.getString("user_cancel") == "true" ||
+                extras.keySet().any { key ->
+                    key.contains("cancel", ignoreCase = true) ||
+                    extras.get(key)?.toString()?.contains("cancel", ignoreCase = true) == true
+                }
+            )
 
             if (!isUserCancel) {
                 @Suppress("DEPRECATION")

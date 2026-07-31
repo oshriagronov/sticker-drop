@@ -388,7 +388,7 @@ ADDED from [androidx.core:core:1.12.0] /Users/oshriagronov/.gradle/caches/9.5.0/
 		ADDED from [androidx.core:core:1.12.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/3535a83ba7aadedf0a12a7e391b0c06d/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
 	android:name
 		ADDED from [androidx.core:core:1.12.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/3535a83ba7aadedf0a12a7e391b0c06d/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
-permission#com.stickerpack.maker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+permission#com.stickerdrop.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.12.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/3535a83ba7aadedf0a12a7e391b0c06d/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
 	android:protectionLevel
 		ADDED from [androidx.core:core:1.12.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/3535a83ba7aadedf0a12a7e391b0c06d/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
@@ -398,7 +398,7 @@ uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.12.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/3535a83ba7aadedf0a12a7e391b0c06d/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.12.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/3535a83ba7aadedf0a12a7e391b0c06d/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
-uses-permission#com.stickerpack.maker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+uses-permission#com.stickerdrop.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.12.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/3535a83ba7aadedf0a12a7e391b0c06d/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.12.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/3535a83ba7aadedf0a12a7e391b0c06d/transformed/core-1.12.0/AndroidManifest.xml:26:22-94

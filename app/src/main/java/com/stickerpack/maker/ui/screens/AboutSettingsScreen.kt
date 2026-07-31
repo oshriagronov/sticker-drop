@@ -1,5 +1,9 @@
 package com.stickerpack.maker.ui.screens
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -13,12 +17,14 @@ import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -81,12 +87,14 @@ fun AboutSettingsScreen(
                 )
 
                 FeatureCard(
-                    icon = Icons.Default.VerifiedUser,
-                    title = "Secure & Fast",
-                    description = "Local processing ensures your packs are created instantly and securely on your device."
+                    icon = Icons.Default.Code,
+                    title = "Open Source",
+                    description = "StickerDrop is 100% open source. Explore the codebase, contribute, or build your own version on GitHub."
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
+
+                val context = LocalContext.current
 
                 // Links Section Container
                 Card(
@@ -98,20 +106,44 @@ fun AboutSettingsScreen(
                 ) {
                     Column {
                         LinkRow(
+                            icon = Icons.Default.Code,
+                            title = "GitHub Repository",
+                            onClick = {
+                                val intent = Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://github.com/oshriagronov/sticker-drop")
+                                )
+                                context.startActivity(intent)
+                            }
+                        )
+                        HorizontalDivider(color = OutlineVariantGreen.copy(alpha = 0.3f))
+                        LinkRow(
                             icon = Icons.Default.Policy,
                             title = "Privacy Policy",
-                            onClick = {}
+                            onClick = {
+                                val intent = Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://github.com/oshriagronov/sticker-drop/blob/main/PRIVACY_POLICY.md")
+                                )
+                                context.startActivity(intent)
+                            }
                         )
                         HorizontalDivider(color = OutlineVariantGreen.copy(alpha = 0.3f))
                         LinkRow(
                             icon = Icons.AutoMirrored.Filled.MenuBook,
                             title = "Terms of Service",
-                            onClick = {}
+                            onClick = {
+                                val intent = Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://github.com/oshriagronov/sticker-drop/blob/main/TERMS_OF_SERVICE.md")
+                                )
+                                context.startActivity(intent)
+                            }
                         )
                         HorizontalDivider(color = OutlineVariantGreen.copy(alpha = 0.3f))
                         LinkRow(
                             icon = Icons.Default.BugReport,
-                            title = "View App & WhatsApp Sync Logs",
+                            title = "App Logs",
                             onClick = onViewLogsClick
                         )
                     }
@@ -120,12 +152,13 @@ fun AboutSettingsScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 // Version Footer
+                val appVersion = remember(context) { getAppVersion(context) }
                 Box(
                     modifier = Modifier.fillMaxWidth(),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Version 2.4.1",
+                        text = "Version $appVersion",
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontFamily = FontFamily.Monospace,
                             color = TextOnSurfaceVariant.copy(alpha = 0.7f)
@@ -266,5 +299,21 @@ private fun LinkRow(
             contentDescription = null,
             tint = TextOnSurfaceVariant
         )
+    }
+}
+
+private fun getAppVersion(context: Context): String {
+    return try {
+        val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+        val versionName = packageInfo.versionName ?: "1.0"
+        val versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            packageInfo.longVersionCode
+        } else {
+            @Suppress("DEPRECATION")
+            packageInfo.versionCode.toLong()
+        }
+        "$versionName ($versionCode)"
+    } catch (e: Exception) {
+        "1.0 (1)"
     }
 }
