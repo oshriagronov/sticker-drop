@@ -15,6 +15,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.animation.*
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -66,6 +69,11 @@ fun StickerAppContent(viewModel: StickerViewModel) {
     var logsContent by remember { mutableStateOf("") }
 
     val context = LocalContext.current
+
+    // Fast & smooth 180ms screen transition specs
+    val animDuration = 180
+    val enterAnim = fadeIn(animationSpec = tween(animDuration, easing = FastOutSlowInEasing))
+    val exitAnim = fadeOut(animationSpec = tween(animDuration, easing = FastOutSlowInEasing))
 
     // WhatsApp ActivityResult Launcher
     val whatsappAddLauncher = rememberLauncherForActivityResult(
@@ -131,7 +139,11 @@ fun StickerAppContent(viewModel: StickerViewModel) {
 
     NavHost(
         navController = navController,
-        startDestination = "pack_list"
+        startDestination = "pack_list",
+        enterTransition = { enterAnim },
+        exitTransition = { exitAnim },
+        popEnterTransition = { enterAnim },
+        popExitTransition = { exitAnim }
     ) {
         composable("pack_list") {
             PackListScreen(
@@ -142,9 +154,8 @@ fun StickerAppContent(viewModel: StickerViewModel) {
                 },
                 onCreatePackClick = { showCreateDialog = true },
                 onImportClick = { showImportDialog = true },
-                onViewLogsClick = {
-                    logsContent = StickerContentProvider.getDebugLogs(context)
-                    showLogsDialog = true
+                onAboutClick = {
+                    navController.navigate("about_settings")
                 },
                 onExportToWhatsApp = { pack ->
                     launchExportToWhatsApp(pack)
@@ -182,6 +193,20 @@ fun StickerAppContent(viewModel: StickerViewModel) {
                 },
                 onDeleteSticker = { sticker ->
                     viewModel.deleteSticker(sticker)
+                }
+            )
+        }
+
+        composable("about_settings") {
+            AboutSettingsScreen(
+                onNavigateToPacks = {
+                    navController.navigate("pack_list") {
+                        popUpTo("pack_list") { inclusive = true }
+                    }
+                },
+                onViewLogsClick = {
+                    logsContent = StickerContentProvider.getDebugLogs(context)
+                    showLogsDialog = true
                 }
             )
         }

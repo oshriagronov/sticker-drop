@@ -5,6 +5,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -16,11 +17,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.stickerpack.maker.ui.theme.GreenWhatsApp
+import com.stickerpack.maker.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,10 +42,15 @@ fun CreatePackDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
+        containerColor = CardSurfaceCharcoal,
+        shape = RoundedCornerShape(24.dp),
         title = {
             Text(
-                text = "Create New Sticker Pack",
-                style = MaterialTheme.typography.titleLarge
+                text = "Create New Pack",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = TextOnSurface
+                )
             )
         },
         text = {
@@ -59,7 +66,8 @@ fun CreatePackDialog(
                     modifier = Modifier
                         .size(80.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .background(SurfaceContainerLowest)
+                        .border(2.dp, OutlineVariantGreen, CircleShape)
                         .clickable { imagePicker.launch("image/*") },
                     contentAlignment = Alignment.Center
                 ) {
@@ -75,11 +83,14 @@ fun CreatePackDialog(
                             Icon(
                                 imageVector = Icons.Default.AddPhotoAlternate,
                                 contentDescription = "Pick Icon",
-                                tint = GreenWhatsApp
+                                tint = SpringMint
                             )
                             Text(
                                 text = "Icon",
-                                style = MaterialTheme.typography.labelSmall
+                                style = MaterialTheme.typography.labelSmall.copy(
+                                    fontFamily = FontFamily.Monospace,
+                                    color = PrimaryFixedDimMint
+                                )
                             )
                         }
                     }
@@ -88,17 +99,39 @@ fun CreatePackDialog(
                 OutlinedTextField(
                     value = packName,
                     onValueChange = { packName = it },
-                    label = { Text("Pack Name (e.g. Funny Cats)") },
+                    label = { Text("Pack Name (e.g. Meme Royalty)") },
                     singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = SurfaceContainerNavy,
+                        unfocusedContainerColor = SurfaceContainerLow,
+                        focusedBorderColor = SpringMint,
+                        unfocusedBorderColor = OutlineVariantGreen,
+                        focusedLabelColor = SpringMint,
+                        unfocusedLabelColor = TextOnSurfaceVariant,
+                        focusedTextColor = TextOnSurface,
+                        unfocusedTextColor = TextOnSurface
+                    )
                 )
 
                 OutlinedTextField(
                     value = publisher,
                     onValueChange = { publisher = it },
-                    label = { Text("Publisher Name (e.g. John Doe)") },
+                    label = { Text("Publisher Name (e.g. Oshri)") },
                     singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = SurfaceContainerNavy,
+                        unfocusedContainerColor = SurfaceContainerLow,
+                        focusedBorderColor = SpringMint,
+                        unfocusedBorderColor = OutlineVariantGreen,
+                        focusedLabelColor = SpringMint,
+                        unfocusedLabelColor = TextOnSurfaceVariant,
+                        focusedTextColor = TextOnSurface,
+                        unfocusedTextColor = TextOnSurface
+                    )
                 )
             }
         },
@@ -110,14 +143,24 @@ fun CreatePackDialog(
                         onDismiss()
                     }
                 },
-                colors = ButtonDefaults.buttonColors(containerColor = GreenWhatsApp)
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = SpringMint)
             ) {
-                Text("Create Pack", color = Color.White)
+                Text(
+                    text = "Create Pack",
+                    style = MaterialTheme.typography.labelLarge.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = OnPrimaryContainerMint
+                    )
+                )
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(
+                    text = "Cancel",
+                    style = MaterialTheme.typography.labelLarge.copy(color = TextOnSurfaceVariant)
+                )
             }
         }
     )

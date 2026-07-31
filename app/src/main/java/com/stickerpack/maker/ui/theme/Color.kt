@@ -2,16 +2,26 @@ package com.stickerpack.maker.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val GreenWhatsApp = Color(0xFF25D366)
-val GreenDark = Color(0xFF128C7E)
-val GreenDarker = Color(0xFF075E54)
+// Vibrant Noir (Modern Sticker Studio) Design Tokens from Google Stitch
+val SpringMint = Color(0xFF00F5A0)
+val PrimaryLightMint = Color(0xFFCDFFDE)
+val OnPrimaryContainerMint = Color(0xFF003921)
+val PrimaryFixedDimMint = Color(0xFF00E293)
+val GreenWhatsApp = SpringMint // Alias for WhatsApp green accent
 
-val DarkBackground = Color(0xFF12181B)
-val DarkSurface = Color(0xFF1F292E)
-val DarkCard = Color(0xFF2A373E)
+val SurfaceBackgroundNavy = Color(0xFF051424)
+val SurfaceContainerLowest = Color(0xFF010F1F)
+val SurfaceContainerLow = Color(0xFF0D1C2D)
+val SurfaceContainerNavy = Color(0xFF122131)
+val SurfaceContainerHigh = Color(0xFF1C2B3C)
+val CardSurfaceCharcoal = Color(0xFF2A3439)
 
-val TextPrimaryDark = Color(0xFFF1F5F9)
-val TextSecondaryDark = Color(0xFF94A3B8)
-val AccentEmerald = Color(0xFF10B981)
-val AccentPurple = Color(0xFF8B5CF6)
-val ErrorRed = Color(0xFFEF4444)
+val TextOnSurface = Color(0xFFD4E4FA)
+val TextOnSurfaceVariant = Color(0xFFB9CBBD)
+val SecondaryCharcoal = Color(0xFFC1C7CB)
+val SecondaryContainerCharcoal = Color(0xFF444A4D)
+
+val OutlineGreen = Color(0xFF849588)
+val OutlineVariantGreen = Color(0xFF3B4A40)
+val ErrorPink = Color(0xFFFFB4AB)
+val ErrorContainerRed = Color(0xFF93000A)
