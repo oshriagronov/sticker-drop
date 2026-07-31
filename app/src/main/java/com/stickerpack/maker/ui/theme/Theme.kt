@@ -32,7 +32,7 @@ private val VibrantNoirColorScheme = darkColorScheme(
 
 @Composable
 fun StickerPackMakerTheme(
-    darkTheme: Boolean = true, // Default to Vibrant Noir Dark Theme per Stitch design spec
+    darkTheme: Boolean = true, // Default to Vibrant Noir Dark Theme per Google Stitch (StickerDrop) design spec
     content: @Composable () -> Unit
 ) {
     val colorScheme = VibrantNoirColorScheme

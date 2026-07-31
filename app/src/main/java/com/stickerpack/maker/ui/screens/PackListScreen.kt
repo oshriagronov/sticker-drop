@@ -45,7 +45,9 @@ fun PackListScreen(
     onAboutClick: () -> Unit,
     onExportToWhatsApp: (StickerPackWithStickers) -> Unit,
     onDeletePack: (String) -> Unit,
-    onAddStickerToPack: (packId: String, imageUri: Uri) -> Unit
+    onAddStickerToPack: (packId: String, imageUri: Uri) -> Unit,
+    onSharePack: (StickerPackWithStickers) -> Unit = {},
+    onExportAllPacks: () -> Unit = {}
 ) {
     var activePackIdForAdd by remember { mutableStateOf<String?>(null) }
 
@@ -80,6 +82,13 @@ fun PackListScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = onExportAllPacks) {
+                        Icon(
+                            imageVector = Icons.Default.FolderZip,
+                            contentDescription = "Export All Packs",
+                            tint = SpringMint
+                        )
+                    }
                     IconButton(onClick = onImportClick) {
                         Icon(
                             imageVector = Icons.Default.FileOpen,
@@ -153,6 +162,7 @@ fun PackListScreen(
                             onPackClick = { onPackClick(packWithStickers.pack.identifier) },
                             onExportToWhatsApp = { onExportToWhatsApp(packWithStickers) },
                             onDeletePack = { onDeletePack(packWithStickers.pack.identifier) },
+                            onSharePack = { onSharePack(packWithStickers) },
                             onAddStickerClick = {
                                 activePackIdForAdd = packWithStickers.pack.identifier
                                 photoPickerLauncher.launch("image/*")
@@ -225,6 +235,7 @@ fun PackItemCard(
     onPackClick: () -> Unit,
     onExportToWhatsApp: () -> Unit,
     onDeletePack: () -> Unit,
+    onSharePack: () -> Unit = {},
     onAddStickerClick: () -> Unit
 ) {
     val context = LocalContext.current
@@ -309,17 +320,6 @@ fun PackItemCard(
                         )
                     }
                 }
-
-                IconButton(
-                    onClick = onDeletePack,
-                    modifier = Modifier.size(40.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete Pack",
-                        tint = ErrorPink
-                    )
-                }
             }
 
             // Preview Row of First 5 Stickers
@@ -368,62 +368,63 @@ fun PackItemCard(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // Action Row: Add Sticker & WhatsApp Export
+            // Action Row: Share Pack & Remove
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                OutlinedButton(
-                    onClick = onAddStickerClick,
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(48.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    border = androidx.compose.foundation.BorderStroke(2.dp, OutlineVariantGreen)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.AddPhotoAlternate,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp),
-                        tint = PrimaryFixedDimMint
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Add Sticker",
-                        style = MaterialTheme.typography.labelLarge.copy(
-                            fontWeight = FontWeight.SemiBold,
-                            color = PrimaryFixedDimMint
-                        ),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-
                 Button(
-                    onClick = onExportToWhatsApp,
-                    enabled = true,
+                    onClick = onSharePack,
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = SpringMint,
-                        disabledContainerColor = SpringMint.copy(alpha = 0.5f)
+                        containerColor = SpringMint
                     )
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.Send,
+                        imageVector = Icons.Default.Share,
                         contentDescription = null,
                         modifier = Modifier.size(20.dp),
                         tint = OnPrimaryContainerMint
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Add to WhatsApp",
+                        text = "Share Pack",
                         style = MaterialTheme.typography.labelLarge.copy(
                             fontWeight = FontWeight.Bold,
                             color = OnPrimaryContainerMint
+                        ),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+
+                OutlinedButton(
+                    onClick = onDeletePack,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(48.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.5.dp, ErrorPink.copy(alpha = 0.6f)),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = ErrorPink
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = ErrorPink
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Remove",
+                        style = MaterialTheme.typography.labelLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = ErrorPink
                         ),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis

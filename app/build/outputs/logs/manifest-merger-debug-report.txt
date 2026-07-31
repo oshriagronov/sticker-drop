@@ -1,22 +1,33 @@
 -- Merging decision tree log ---
 provider#com.stickerpack.maker.StickerContentProvider
-INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:32:9-37:66
+INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:74:9-79:66
 	android:readPermission
-		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:37:13-63
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:79:13-63
 	android:enabled
-		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:35:13-35
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:77:13-35
 	android:authorities
 		INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml
-		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:34:13-74
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:76:13-74
 	android:exported
-		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:36:13-36
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:78:13-36
 	android:name
-		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:33:13-51
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:75:13-51
+provider#androidx.core.content.FileProvider
+INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:82:9-90:20
+	android:grantUriPermissions
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:86:13-47
+	android:authorities
+		INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:84:13-64
+	android:exported
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:85:13-37
+	android:name
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:83:13-62
 manifest
-ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:2:1-41:12
-INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:2:1-41:12
-INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:2:1-41:12
-INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:2:1-41:12
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:2:1-94:12
+INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:2:1-94:12
+INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:2:1-94:12
+INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:2:1-94:12
 MERGED from [androidx.navigation:navigation-common:2.7.7] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/6f3a4f278d5aa1920416ce042daba6bb/transformed/navigation-common-2.7.7/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-runtime:2.7.7] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/8d557dbc8837f9cbcc8067fb18442c50/transformed/navigation-runtime-2.7.7/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-ktx:2.7.7] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/7defbe6f8a0fa9e1518a60df9c00af30/transformed/navigation-common-ktx-2.7.7/AndroidManifest.xml:2:1-7:12
@@ -109,8 +120,8 @@ ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/Andr
 	android:name
 		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:10:18-49
 application
-ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:13:5-39:19
-INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:13:5-39:19
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:13:5-92:19
+INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:13:5-92:19
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/911ed264cb4f176b55b86bafdfb28705/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.emoji2:emoji2:1.3.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/911ed264cb4f176b55b86bafdfb28705/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] /Users/oshriagronov/.gradle/caches/9.5.0/transforms/57992d5e30afbae7cc28040fdf89114a/transformed/lifecycle-process-2.7.0/AndroidManifest.xml:23:5-33:19
@@ -144,7 +155,7 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/oshriagronov/.gradle
 	android:theme
 		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:19:9-54
 activity#com.stickerpack.maker.MainActivity
-ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:21:9-29:20
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:21:9-71:20
 	android:exported
 		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:23:13-36
 	android:theme
@@ -161,6 +172,48 @@ category#android.intent.category.LAUNCHER
 ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:27:17-77
 	android:name
 		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:27:27-74
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:*+data:mimeType:*/*+data:pathPattern:.*\\.wastickers+data:scheme:content+data:scheme:file
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:31:13-40:29
+action#android.intent.action.VIEW
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:32:17-69
+	android:name
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:32:25-66
+category#android.intent.category.DEFAULT
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:33:17-76
+	android:name
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:33:27-73
+category#android.intent.category.BROWSABLE
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:34:17-78
+	android:name
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:34:27-75
+data
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:35:17-47
+	android:pathSuffix
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:48:23-55
+	android:host
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:38:23-39
+	android:scheme
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:35:23-44
+	android:pathPattern
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:39:23-60
+	android:mimeType
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:37:23-45
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:content+data:scheme:file
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:42:13-49:29
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:mimeType:application/octet-stream+data:mimeType:application/wastickers+data:mimeType:application/zip+data:scheme:content+data:scheme:file
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:51:13-60:29
+intent-filter#action:name:android.intent.action.SEND+category:name:android.intent.category.DEFAULT+data:mimeType:*/*+data:mimeType:application/octet-stream+data:mimeType:application/wastickers+data:mimeType:application/zip
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:63:13-70:29
+action#android.intent.action.SEND
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:64:17-69
+	android:name
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:64:25-66
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:87:13-89:54
+	android:resource
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:89:17-51
+	android:name
+		ADDED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml:88:17-67
 uses-sdk
 INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/oshriagronov/Documents/Projects/sticker-pack/app/src/main/AndroidManifest.xml

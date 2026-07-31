@@ -42,9 +42,12 @@ fun PackDetailScreen(
     onBackClick: () -> Unit,
     onAddStickerUriSelected: (Uri) -> Unit,
     onExportToWhatsApp: () -> Unit,
-    onDeleteSticker: (StickerEntity) -> Unit
+    onDeleteSticker: (StickerEntity) -> Unit,
+    onUpdatePackMetadata: (name: String, publisher: String) -> Unit = { _, _ -> },
+    onSharePack: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    var showRenameDialog by remember { mutableStateOf(false) }
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -71,6 +74,17 @@ fun PackDetailScreen(
     val trayFile = File(context.filesDir, "stickers/${pack.identifier}/${pack.trayImageFileName}")
     val isReadyForWhatsApp = stickers.size >= 3
 
+    if (showRenameDialog) {
+        EditPackDialog(
+            initialName = pack.name,
+            initialPublisher = pack.publisher,
+            onDismiss = { showRenameDialog = false },
+            onConfirm = { newName, newPublisher ->
+                onUpdatePackMetadata(newName, newPublisher)
+            }
+        )
+    }
+
     Scaffold(
         containerColor = SurfaceBackgroundNavy,
         topBar = {
@@ -90,6 +104,22 @@ fun PackDetailScreen(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
                             tint = TextOnSurface
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onSharePack) {
+                        Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = "Share Pack",
+                            tint = SpringMint
+                        )
+                    }
+                    IconButton(onClick = { showRenameDialog = true }) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Rename Pack",
+                            tint = SpringMint
                         )
                     }
                 },

@@ -35,13 +35,20 @@ import com.stickerpack.maker.data.StickerPackWithStickers
 import com.stickerpack.maker.ui.screens.*
 import com.stickerpack.maker.ui.theme.StickerPackMakerTheme
 import com.stickerpack.maker.ui.viewmodel.StickerViewModel
+import com.stickerpack.maker.util.StickerPackExporter
 
 class MainActivity : ComponentActivity() {
 
     private val viewModel: StickerViewModel by viewModels()
+    private val pendingImportUri = mutableStateOf<Uri?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Clear debug logs each time app opens to ensure fresh logs for session
+        StickerContentProvider.clearDebugLogs(this)
+        StickerContentProvider.log(this, "=== APP OPENED (MainActivity.onCreate) ===")
+
+        handleIntent(intent)
 
         setContent {
             StickerPackMakerTheme {
@@ -49,15 +56,74 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    StickerAppContent(viewModel = viewModel)
+                    StickerAppContent(
+                        viewModel = viewModel,
+                        pendingImportUri = pendingImportUri.value,
+                        onImportHandled = { pendingImportUri.value = null }
+                    )
                 }
             }
         }
     }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        StickerContentProvider.log(this, "=== NEW INTENT RECEIVED (MainActivity.onNewIntent) ===")
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        if (intent == null) {
+            StickerContentProvider.log(this, "handleIntent: Intent is null")
+            return
+        }
+
+        val action = intent.action
+        val data = intent.data
+        val type = intent.type
+        @Suppress("DEPRECATION")
+        val stream = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+        val clipItemCount = intent.clipData?.itemCount ?: 0
+
+        StickerContentProvider.log(
+            this,
+            "Intent received: action=$action, data=$data, type=$type, extra_stream=$stream, clipItemCount=$clipItemCount"
+        )
+
+        val uri = extractUriFromIntent(intent)
+        if (uri != null) {
+            StickerContentProvider.log(this, "Extracted valid target URI: $uri")
+            pendingImportUri.value = uri
+        } else {
+            StickerContentProvider.log(this, "No valid file URI found in intent")
+        }
+    }
+
+    private fun extractUriFromIntent(intent: Intent?): Uri? {
+        if (intent == null) return null
+        val action = intent.action
+        if (Intent.ACTION_VIEW == action || Intent.ACTION_SEND == action || Intent.ACTION_SEND_MULTIPLE == action) {
+            var uri: Uri? = intent.data
+            if (uri == null) {
+                @Suppress("DEPRECATION")
+                uri = intent.getParcelableExtra(Intent.EXTRA_STREAM) as? Uri
+            }
+            if (uri == null && intent.clipData != null && intent.clipData!!.itemCount > 0) {
+                uri = intent.clipData!!.getItemAt(0).uri
+            }
+            return uri
+        }
+        return null
+    }
 }
 
 @Composable
-fun StickerAppContent(viewModel: StickerViewModel) {
+fun StickerAppContent(
+    viewModel: StickerViewModel,
+    pendingImportUri: Uri? = null,
+    onImportHandled: () -> Unit = {}
+) {
     val navController = rememberNavController()
     val packs by viewModel.packsState.collectAsState()
     val selectedPack by viewModel.selectedPackState.collectAsState()
@@ -84,12 +150,19 @@ fun StickerAppContent(viewModel: StickerViewModel) {
         } else {
             val extras = result.data?.extras
             @Suppress("DEPRECATION")
-            val errorMsg = if (extras != null && !extras.isEmpty) {
-                extras.keySet().joinToString("\n") { key -> "$key: ${extras.get(key)}" }
-            } else {
-                "WhatsApp canceled or returned code: ${result.resultCode}"
+            val isUserCancel = extras?.getBoolean("user_cancel", false) == true ||
+                    extras?.getString("user_cancel") == "true" ||
+                    (result.resultCode == Activity.RESULT_CANCELED && (extras == null || extras.isEmpty))
+
+            if (!isUserCancel) {
+                @Suppress("DEPRECATION")
+                val errorMsg = if (extras != null && !extras.isEmpty) {
+                    extras.keySet().joinToString("\n") { key -> "$key: ${extras.get(key)}" }
+                } else {
+                    "Could not add pack to WhatsApp"
+                }
+                Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
             }
-            Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -137,6 +210,17 @@ fun StickerAppContent(viewModel: StickerViewModel) {
         }
     }
 
+    LaunchedEffect(pendingImportUri) {
+        pendingImportUri?.let { uri ->
+            viewModel.importPackFromZip(uri) { packId ->
+                if (packId != null) {
+                    navController.navigate("pack_detail/$packId")
+                }
+                onImportHandled()
+            }
+        }
+    }
+
     NavHost(
         navController = navController,
         startDestination = "pack_list",
@@ -165,6 +249,12 @@ fun StickerAppContent(viewModel: StickerViewModel) {
                 },
                 onAddStickerToPack = { packId, imageUri ->
                     viewModel.addStickerToPack(packId, imageUri, emojis = "😀", cropCircle = false)
+                },
+                onSharePack = { pack ->
+                    StickerPackExporter.sharePack(context, pack)
+                },
+                onExportAllPacks = {
+                    StickerPackExporter.shareAllPacks(context, packs)
                 }
             )
         }
@@ -193,6 +283,16 @@ fun StickerAppContent(viewModel: StickerViewModel) {
                 },
                 onDeleteSticker = { sticker ->
                     viewModel.deleteSticker(sticker)
+                },
+                onUpdatePackMetadata = { name, publisher ->
+                    if (packId != null) {
+                        viewModel.updatePackMetadata(packId, name, publisher)
+                    }
+                },
+                onSharePack = {
+                    selectedPack?.let { pack ->
+                        StickerPackExporter.sharePack(context, pack)
+                    }
                 }
             )
         }
@@ -225,11 +325,12 @@ fun StickerAppContent(viewModel: StickerViewModel) {
     if (showImportDialog) {
         ImportPackDialog(
             onDismiss = { showImportDialog = false },
-            onImportJson = { uri ->
-                viewModel.importPackFromJson(uri)
-            },
-            onImportZip = { uri ->
-                viewModel.importPackFromZip(uri)
+            onImportFile = { uri ->
+                viewModel.importPackFromZip(uri) { packId ->
+                    if (packId != null) {
+                        navController.navigate("pack_detail/$packId")
+                    }
+                }
             }
         )
     }

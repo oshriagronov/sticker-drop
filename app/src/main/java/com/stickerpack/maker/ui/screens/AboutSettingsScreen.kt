@@ -48,7 +48,7 @@ fun AboutSettingsScreen(
                     .padding(top = 24.dp, bottom = 100.dp),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                // Screen Header Title & Subtitle matching Stitch mockup
+                // Screen Header Title & Subtitle matching Google Stitch (StickerDrop) mockup
                 Column(modifier = Modifier.padding(top = 16.dp)) {
                     Text(
                         text = "About",

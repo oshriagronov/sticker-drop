@@ -1,6 +1,6 @@
 # AGENTS.md - Developer & Agent Guide for StickerDrop
 
-Welcome to **StickerDrop** (Modern Sticker Studio)! This file provides project context, architectural guidelines, design system rules, and engineering instructions for human developers and AI assistants.
+Welcome to **StickerDrop**! (Google Stitch Project: **StickerDrop**). This file provides project context, architectural guidelines, design system rules, and engineering instructions for human developers and AI assistants.
 
 ---
 
@@ -41,7 +41,7 @@ All UI components must strictly adhere to the **Vibrant Noir** design specificat
    - Cards: `24.dp` rounded corners (`RoundedCornerShape(24.dp)`).
    - Thumbnails & Buttons: `12.dp` to `16.dp` rounded corners.
    - FABs & Nav Pills: Pill-shaped (`CircleShape` / `RoundedCornerShape(50)`).
-5. **No Generic Placeholders:** All UI components should display realistic, styled content or graceful empty states matching the Google Stitch mockups.
+5. **No Generic Placeholders:** All UI components should display realistic, styled content or graceful empty states matching the Google Stitch **StickerDrop** project mockups.
 
 ---
 

@@ -61,6 +61,21 @@ class StickerViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun updatePackMetadata(packIdentifier: String, name: String, publisher: String) {
+        if (name.isBlank() || publisher.isBlank()) {
+            _userMessage.value = "Pack Name and Author cannot be empty"
+            return
+        }
+        viewModelScope.launch {
+            val success = repository.updatePackMetadata(packIdentifier, name, publisher)
+            if (success) {
+                _userMessage.value = "Pack details updated!"
+            } else {
+                _userMessage.value = "Failed to update pack details."
+            }
+        }
+    }
+
     fun addStickerToPack(
         packIdentifier: String,
         imageUri: Uri,
@@ -99,7 +114,7 @@ class StickerViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun importPackFromJson(uri: Uri) {
+    fun importPackFromJson(uri: Uri, onComplete: ((String?) -> Unit)? = null) {
         viewModelScope.launch {
             val packId = repository.importPackFromJson(uri)
             if (packId != null) {
@@ -108,10 +123,11 @@ class StickerViewModel(application: Application) : AndroidViewModel(application)
             } else {
                 _userMessage.value = "Failed to import pack from JSON."
             }
+            onComplete?.invoke(packId)
         }
     }
 
-    fun importPackFromZip(uri: Uri) {
+    fun importPackFromZip(uri: Uri, onComplete: ((String?) -> Unit)? = null) {
         viewModelScope.launch {
             val packId = repository.importPackFromZip(uri)
             if (packId != null) {
@@ -120,6 +136,7 @@ class StickerViewModel(application: Application) : AndroidViewModel(application)
             } else {
                 _userMessage.value = "Failed to import pack. Ensure file is a valid .wastickers or zip package."
             }
+            onComplete?.invoke(packId)
         }
     }
 

@@ -7,45 +7,37 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FileDownload
-import androidx.compose.material.icons.filled.FolderZip
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.stickerpack.maker.ui.theme.GreenWhatsApp
+import com.stickerpack.maker.ui.theme.*
 
 @Composable
 fun ImportPackDialog(
     onDismiss: () -> Unit,
-    onImportJson: (Uri) -> Unit,
-    onImportZip: (Uri) -> Unit
+    onImportFile: (Uri) -> Unit
 ) {
-    val jsonPicker = rememberLauncherForActivityResult(
+    val filePicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         if (uri != null) {
-            onImportJson(uri)
-            onDismiss()
-        }
-    }
-
-    val zipPicker = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        if (uri != null) {
-            onImportZip(uri)
+            onImportFile(uri)
             onDismiss()
         }
     }
 
     AlertDialog(
         onDismissRequest = onDismiss,
+        containerColor = SurfaceContainerHigh,
         title = {
             Text(
-                text = "Load Existing Sticker Pack",
-                style = MaterialTheme.typography.titleLarge
+                text = "Load Sticker Pack",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    color = TextOnSurface,
+                    fontWeight = FontWeight.Bold
+                )
             )
         },
         text = {
@@ -53,47 +45,46 @@ fun ImportPackDialog(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
-                    text = "Select a sticker pack file from your device to load into the app. You can add more stickers and update the pack on WhatsApp.",
+                    text = "Select a .wastickers file from your device to load into StickerDrop.",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = TextOnSurfaceVariant
                 )
 
-                OutlinedButton(
-                    onClick = { zipPicker.launch("*/*") },
+                Button(
+                    onClick = { filePicker.launch("*/*") },
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.FolderZip,
-                        contentDescription = "Zip",
-                        tint = GreenWhatsApp,
-                        modifier = Modifier.padding(end = 8.dp)
-                    )
-                    Text("Load .wastickers or .zip Package")
-                }
-
-                OutlinedButton(
-                    onClick = { jsonPicker.launch("application/json") },
-                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = SpringMint,
+                        contentColor = OnPrimaryContainerMint
+                    ),
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.FileDownload,
-                        contentDescription = "JSON",
-                        tint = GreenWhatsApp,
+                        contentDescription = "Import",
+                        tint = OnPrimaryContainerMint,
                         modifier = Modifier.padding(end = 8.dp)
                     )
-                    Text("Load Pack from metadata JSON")
+                    Text(
+                        text = "Select .wastickers File",
+                        style = MaterialTheme.typography.labelLarge.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = OnPrimaryContainerMint
+                    )
                 }
             }
         },
         confirmButton = {},
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(
+                    text = "Cancel",
+                    color = TextOnSurfaceVariant
+                )
             }
         }
     )

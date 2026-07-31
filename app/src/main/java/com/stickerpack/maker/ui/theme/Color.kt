@@ -2,7 +2,7 @@ package com.stickerpack.maker.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Vibrant Noir (Modern Sticker Studio) Design Tokens from Google Stitch
+// Vibrant Noir (StickerDrop) Design Tokens from Google Stitch
 val SpringMint = Color(0xFF00F5A0)
 val PrimaryLightMint = Color(0xFFCDFFDE)
 val OnPrimaryContainerMint = Color(0xFF003921)

@@ -1,6 +1,6 @@
-# Design System: Vibrant Noir (Modern Sticker Studio)
+# Design System: Vibrant Noir (StickerDrop)
 
-The design system for **StickerDrop** (Modern Sticker Studio) is built on a foundation of **Corporate Modernism** infused with a **High-Contrast Dark Energy**. It targets a creative, mobile-first audience that values both efficiency and aesthetic pleasure. The visual style is professional yet playful—mimicking the "premium" feel of high-end developer tools while maintaining the approachability of a creative sticker creator.
+The design system for **StickerDrop** (Google Stitch project: **StickerDrop**) is built on a foundation of **Corporate Modernism** infused with a **High-Contrast Dark Energy**. It targets a creative, mobile-first audience that values both efficiency and aesthetic pleasure. The visual style is professional yet playful—mimicking the "premium" feel of high-end developer tools while maintaining the approachability of a creative sticker creator.
 
 ---
 

@@ -48,6 +48,21 @@ class StickerRepository(private val context: Context) {
         packId
     }
 
+    suspend fun updatePackMetadata(
+        packIdentifier: String,
+        name: String,
+        publisher: String
+    ): Boolean = withContext(Dispatchers.IO) {
+        val pack = dao.getPackById(packIdentifier) ?: return@withContext false
+        val updatedPack = pack.copy(
+            name = name.trim(),
+            publisher = publisher.trim(),
+            imageDataVersion = pack.imageDataVersion + 1
+        )
+        dao.updatePack(updatedPack)
+        true
+    }
+
     suspend fun addStickerToPack(
         packIdentifier: String,
         imageUri: Uri,

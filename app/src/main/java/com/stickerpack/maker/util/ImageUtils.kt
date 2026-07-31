@@ -110,6 +110,106 @@ object ImageUtils {
     }
 
     /**
+     * Converts a local image file into a 96x96 WebP tray icon file.
+     */
+    fun createTrayFromFile(
+        context: Context,
+        sourceFile: File,
+        packIdentifier: String,
+        outputFileName: String
+    ): File? {
+        val originalBitmap = try {
+            BitmapFactory.decodeFile(sourceFile.absolutePath)
+        } catch (e: Exception) {
+            null
+        } ?: return null
+
+        val canvasBitmap = Bitmap.createBitmap(TRAY_SIZE, TRAY_SIZE, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(canvasBitmap)
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+
+        val scale = min(
+            TRAY_SIZE.toFloat() / originalBitmap.width,
+            TRAY_SIZE.toFloat() / originalBitmap.height
+        )
+        val scaledWidth = originalBitmap.width * scale
+        val scaledHeight = originalBitmap.height * scale
+        val left = (TRAY_SIZE - scaledWidth) / 2f
+        val top = (TRAY_SIZE - scaledHeight) / 2f
+
+        val destRect = RectF(left, top, left + scaledWidth, top + scaledHeight)
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
+        canvas.drawBitmap(originalBitmap, null, destRect, paint)
+
+        val packDir = File(context.filesDir, "stickers/$packIdentifier")
+        if (!packDir.exists()) {
+            packDir.mkdirs()
+        }
+
+        val outputFile = File(packDir, outputFileName)
+        val success = compressToWebp(canvasBitmap, outputFile, MAX_TRAY_BYTES)
+
+        originalBitmap.recycle()
+        canvasBitmap.recycle()
+
+        return if (success) outputFile else null
+    }
+
+    /**
+     * Formats an image file into a 512x512 WebP sticker file compliant with WhatsApp specs.
+     * Returns null if the image is small (e.g. 96x96 tray icon) or invalid.
+     */
+    fun formatStickerFromFile(
+        context: Context,
+        sourceFile: File,
+        packIdentifier: String,
+        outputFileName: String
+    ): File? {
+        val originalBitmap = try {
+            BitmapFactory.decodeFile(sourceFile.absolutePath)
+        } catch (e: Exception) {
+            null
+        } ?: return null
+
+        // Reject tray icons / small images (width <= 128 and height <= 128)
+        if (originalBitmap.width <= 128 && originalBitmap.height <= 128) {
+            originalBitmap.recycle()
+            return null
+        }
+
+        // 512x512 transparent canvas
+        val canvasBitmap = Bitmap.createBitmap(STICKER_SIZE, STICKER_SIZE, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(canvasBitmap)
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+
+        val scale = min(
+            STICKER_CONTENT_SIZE.toFloat() / originalBitmap.width,
+            STICKER_CONTENT_SIZE.toFloat() / originalBitmap.height
+        )
+        val scaledWidth = originalBitmap.width * scale
+        val scaledHeight = originalBitmap.height * scale
+        val left = (STICKER_SIZE - scaledWidth) / 2f
+        val top = (STICKER_SIZE - scaledHeight) / 2f
+
+        val destRect = RectF(left, top, left + scaledWidth, top + scaledHeight)
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
+        canvas.drawBitmap(originalBitmap, null, destRect, paint)
+
+        val packDir = File(context.filesDir, "stickers/$packIdentifier")
+        if (!packDir.exists()) {
+            packDir.mkdirs()
+        }
+
+        val outputFile = File(packDir, outputFileName)
+        val success = compressToWebp(canvasBitmap, outputFile, MAX_STICKER_BYTES)
+
+        originalBitmap.recycle()
+        canvasBitmap.recycle()
+
+        return if (success) outputFile else null
+    }
+
+    /**
      * Creates a default placeholder 96x96 WebP tray icon.
      */
     fun createDefaultTrayWebp(

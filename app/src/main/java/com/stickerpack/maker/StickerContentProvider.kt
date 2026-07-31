@@ -58,17 +58,23 @@ class StickerContentProvider : ContentProvider() {
                 File(ctx.filesDir, "provider_debug.log").delete()
             } catch (ignored: Exception) {}
         }
+
+        fun log(ctx: Context?, msg: String) {
+            if (ctx == null) return
+            try {
+                val timestamp = java.text.SimpleDateFormat("HH:mm:ss", java.util.Locale.US).format(java.util.Date())
+                val formatted = "[$timestamp] $msg"
+                Log.d(TAG, formatted)
+                val file = File(ctx.filesDir, "provider_debug.log")
+                file.appendText("$formatted\n")
+            } catch (ignored: Exception) {}
+        }
     }
 
     private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
     private fun appendLog(msg: String) {
-        val ctx = context ?: return
-        try {
-            Log.d(TAG, msg)
-            val file = File(ctx.filesDir, "provider_debug.log")
-            file.appendText("$msg\n")
-        } catch (ignored: Exception) {}
+        log(context, msg)
     }
 
     override fun onCreate(): Boolean {
