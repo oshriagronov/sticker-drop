@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -109,11 +110,7 @@ fun AboutSettingsScreen(
                             icon = Icons.Default.Code,
                             title = "GitHub Repository",
                             onClick = {
-                                val intent = Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://github.com/oshriagronov/sticker-drop")
-                                )
-                                context.startActivity(intent)
+                                openUrl(context, "https://github.com/oshriagronov/sticker-drop")
                             }
                         )
                         HorizontalDivider(color = OutlineVariantGreen.copy(alpha = 0.3f))
@@ -121,11 +118,7 @@ fun AboutSettingsScreen(
                             icon = Icons.Default.Policy,
                             title = "Privacy Policy",
                             onClick = {
-                                val intent = Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://github.com/oshriagronov/sticker-drop/blob/main/PRIVACY_POLICY.md")
-                                )
-                                context.startActivity(intent)
+                                openUrl(context, "https://github.com/oshriagronov/sticker-drop/blob/main/PRIVACY_POLICY.md")
                             }
                         )
                         HorizontalDivider(color = OutlineVariantGreen.copy(alpha = 0.3f))
@@ -133,11 +126,7 @@ fun AboutSettingsScreen(
                             icon = Icons.AutoMirrored.Filled.MenuBook,
                             title = "Terms of Service",
                             onClick = {
-                                val intent = Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://github.com/oshriagronov/sticker-drop/blob/main/TERMS_OF_SERVICE.md")
-                                )
-                                context.startActivity(intent)
+                                openUrl(context, "https://github.com/oshriagronov/sticker-drop/blob/main/TERMS_OF_SERVICE.md")
                             }
                         )
                         HorizontalDivider(color = OutlineVariantGreen.copy(alpha = 0.3f))
@@ -315,5 +304,16 @@ private fun getAppVersion(context: Context): String {
         "$versionName ($versionCode)"
     } catch (e: Exception) {
         "1.0 (1)"
+    }
+}
+
+private fun openUrl(context: Context, url: String) {
+    try {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(intent)
+    } catch (e: Exception) {
+        Toast.makeText(context, "Could not open link: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
     }
 }
