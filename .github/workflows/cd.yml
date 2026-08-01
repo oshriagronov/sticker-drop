@@ -11,6 +11,8 @@ jobs:
   build:
     name: Build Signed Release APK
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Repository
@@ -56,3 +58,11 @@ jobs:
           name: stickerdrop-release-apk
           path: app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('v1.0.1-build.{0}', github.run_number) }}
+          name: ${{ startsWith(github.ref, 'refs/tags/') && format('Release {0}', github.ref_name) || format('Build #{0}', github.run_number) }}
+          files: app/build/outputs/apk/release/app-release.apk
+          generate_release_notes: true
