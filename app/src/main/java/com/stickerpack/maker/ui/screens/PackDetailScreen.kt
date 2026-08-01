@@ -2,6 +2,7 @@ package com.stickerpack.maker.ui.screens
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -50,7 +51,7 @@ fun PackDetailScreen(
     var showRenameDialog by remember { mutableStateOf(false) }
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
+        contract = ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
             onAddStickerUriSelected(uri)
@@ -234,7 +235,7 @@ fun PackDetailScreen(
                         modifier = Modifier
                             .aspectRatio(1f)
                             .border(2.dp, SpringMint, RoundedCornerShape(16.dp))
-                            .clickable { photoPickerLauncher.launch("image/*") },
+                            .clickable { photoPickerLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
                         shape = RoundedCornerShape(16.dp),
                         colors = CardDefaults.cardColors(containerColor = SurfaceContainerNavy)
                     ) {

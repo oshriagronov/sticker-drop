@@ -2,6 +2,7 @@ package com.stickerpack.maker.ui.screens
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,7 +36,7 @@ fun CreatePackDialog(
     var trayUri by remember { mutableStateOf<Uri?>(null) }
 
     val imagePicker = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
+        contract = ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) trayUri = uri
     }
@@ -68,7 +69,7 @@ fun CreatePackDialog(
                         .clip(CircleShape)
                         .background(SurfaceContainerLowest)
                         .border(2.dp, OutlineVariantGreen, CircleShape)
-                        .clickable { imagePicker.launch("image/*") },
+                        .clickable { imagePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
                     contentAlignment = Alignment.Center
                 ) {
                     if (trayUri != null) {

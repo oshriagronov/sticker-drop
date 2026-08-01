@@ -18,7 +18,7 @@ Welcome to **StickerDrop**! (Google Stitch Project: **StickerDrop**). This file 
 
 ## 📐 Architecture & Tech Stack
 
-- **Platform:** Native Android (Kotlin, JDK 17, minSdk 24, targetSdk 34)
+- **Platform:** Native Android (Kotlin, JDK 17, minSdk 24, targetSdk 35)
 - **UI Framework:** Jetpack Compose (Material 3)
 - **Database / Persistence:** Room Database (`StickerDatabase`, `StickerPackDao`, `StickerDao`)
 - **Image Loading:** Coil (`io.coil-kt:coil-compose`)

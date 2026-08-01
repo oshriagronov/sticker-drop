@@ -2,6 +2,7 @@ package com.stickerpack.maker.ui.screens
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,7 +37,7 @@ fun StickerAddDialog(
     var cropCircle by remember { mutableStateOf(false) }
 
     val imagePicker = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
+        contract = ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) selectedUri = uri
     }
@@ -68,7 +69,7 @@ fun StickerAddDialog(
                             color = if (selectedUri != null) GreenWhatsApp else Color.Transparent,
                             shape = if (cropCircle) CircleShape else RoundedCornerShape(16.dp)
                         )
-                        .clickable { imagePicker.launch("image/*") },
+                        .clickable { imagePicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
                     contentAlignment = Alignment.Center
                 ) {
                     if (selectedUri != null) {
