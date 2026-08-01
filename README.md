@@ -85,6 +85,24 @@ com.stickerpack.maker/
 
 ---
 
+## ⚙️ CI/CD & Automated Signed APKs
+
+**StickerDrop** includes a GitHub Actions workflow (`.github/workflows/cd.yml`) that automatically builds and outputs a signed release APK (`app-release.apk`) on every commit pushed to GitHub.
+
+### Setting up GitHub Repository Secrets
+To enable release key signing in GitHub Actions, navigate to **Settings → Secrets and variables → Actions** in your GitHub repository and add the following secrets:
+
+| Secret Name | Description | Command to Generate |
+| :--- | :--- | :--- |
+| `KEYSTORE_BASE64` | Base64 representation of your `.jks` file | `base64 -i release-key.jks \| pbcopy` |
+| `KEYSTORE_PASSWORD` | Password for the keystore | e.g. `your_keystore_password` |
+| `KEY_ALIAS` | Key alias inside the keystore | e.g. `stickerdrop_key` |
+| `KEY_PASSWORD` | Password for the key alias | e.g. `your_key_password` |
+
+After pushing code or triggering the workflow manually via `workflow_dispatch`, download your signed APK from the **Actions** tab under **Artifacts → stickerdrop-release-apk**.
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to open issues, submit pull requests, or suggest new features on [GitHub](https://github.com/oshriagronov/sticker-drop).

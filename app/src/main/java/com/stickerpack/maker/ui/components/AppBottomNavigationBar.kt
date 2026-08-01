@@ -21,100 +21,120 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.stickerpack.maker.ui.theme.*
 
+import androidx.compose.ui.text.style.TextOverflow
+
 @Composable
 fun AppBottomNavigationBar(
     currentRoute: String,
     onNavigateToPacks: () -> Unit,
-    onNavigateToAbout: () -> Unit
+    onNavigateToAbout: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val animationSpec = tween<Color>(durationMillis = 180, easing = FastOutSlowInEasing)
 
     Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 12.dp)
-            .clip(CircleShape),
+        modifier = modifier.clip(CircleShape),
         color = SurfaceContainerLow,
         tonalElevation = 8.dp
     ) {
-        Row(
+        BoxWithConstraints(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(64.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
+                .height(56.dp)
+                .padding(horizontal = 6.dp, vertical = 4.dp),
+            contentAlignment = Alignment.Center
         ) {
-            val isPacksSelected = currentRoute == "pack_list"
-            val isAboutSelected = currentRoute == "about_settings"
+            val showLabels = maxWidth >= 220.dp
 
-            val packsBgColor by animateColorAsState(
-                targetValue = if (isPacksSelected) SecondaryContainerCharcoal else Color.Transparent,
-                animationSpec = animationSpec,
-                label = "packsBg"
-            )
-            val packsContentColor by animateColorAsState(
-                targetValue = if (isPacksSelected) PrimaryFixedDimMint else TextOnSurfaceVariant,
-                animationSpec = animationSpec,
-                label = "packsContent"
-            )
-
-            val aboutBgColor by animateColorAsState(
-                targetValue = if (isAboutSelected) SecondaryContainerCharcoal else Color.Transparent,
-                animationSpec = animationSpec,
-                label = "aboutBg"
-            )
-            val aboutContentColor by animateColorAsState(
-                targetValue = if (isAboutSelected) PrimaryFixedDimMint else TextOnSurfaceVariant,
-                animationSpec = animationSpec,
-                label = "aboutContent"
-            )
-
-            // My Packs Tab
             Row(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(packsBgColor)
-                    .clickable(enabled = !isPacksSelected, onClick = onNavigateToPacks)
-                    .padding(horizontal = 20.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    imageVector = Icons.Default.FolderOpen,
-                    contentDescription = "My Packs",
-                    tint = packsContentColor
-                )
-                Text(
-                    text = "My Packs",
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontWeight = if (isPacksSelected) FontWeight.Bold else FontWeight.Normal,
-                        color = packsContentColor
-                    )
-                )
-            }
+                val isPacksSelected = currentRoute == "pack_list"
+                val isAboutSelected = currentRoute == "about_settings"
 
-            // About Tab
-            Row(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(aboutBgColor)
-                    .clickable(enabled = !isAboutSelected, onClick = onNavigateToAbout)
-                    .padding(horizontal = 20.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Info,
-                    contentDescription = "About",
-                    tint = aboutContentColor
+                val packsBgColor by animateColorAsState(
+                    targetValue = if (isPacksSelected) SecondaryContainerCharcoal else Color.Transparent,
+                    animationSpec = animationSpec,
+                    label = "packsBg"
                 )
-                Text(
-                    text = "About",
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontWeight = if (isAboutSelected) FontWeight.Bold else FontWeight.Normal,
-                        color = aboutContentColor
+                val packsContentColor by animateColorAsState(
+                    targetValue = if (isPacksSelected) PrimaryFixedDimMint else TextOnSurfaceVariant,
+                    animationSpec = animationSpec,
+                    label = "packsContent"
+                )
+
+                val aboutBgColor by animateColorAsState(
+                    targetValue = if (isAboutSelected) SecondaryContainerCharcoal else Color.Transparent,
+                    animationSpec = animationSpec,
+                    label = "aboutBg"
+                )
+                val aboutContentColor by animateColorAsState(
+                    targetValue = if (isAboutSelected) PrimaryFixedDimMint else TextOnSurfaceVariant,
+                    animationSpec = animationSpec,
+                    label = "aboutContent"
+                )
+
+                // My Packs Tab
+                Row(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(packsBgColor)
+                        .clickable(enabled = !isPacksSelected, onClick = onNavigateToPacks)
+                        .padding(horizontal = if (showLabels) 14.dp else 12.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.FolderOpen,
+                        contentDescription = "My Packs",
+                        tint = packsContentColor
                     )
-                )
+                    if (showLabels) {
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = "My Packs",
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                fontWeight = if (isPacksSelected) FontWeight.Bold else FontWeight.Normal,
+                                color = packsContentColor
+                            ),
+                            maxLines = 1,
+                            softWrap = false,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+
+                // About Tab
+                Row(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(aboutBgColor)
+                        .clickable(enabled = !isAboutSelected, onClick = onNavigateToAbout)
+                        .padding(horizontal = if (showLabels) 14.dp else 12.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Info,
+                        contentDescription = "About",
+                        tint = aboutContentColor
+                    )
+                    if (showLabels) {
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = "About",
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                fontWeight = if (isAboutSelected) FontWeight.Bold else FontWeight.Normal,
+                                color = aboutContentColor
+                            ),
+                            maxLines = 1,
+                            softWrap = false,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
             }
         }
     }

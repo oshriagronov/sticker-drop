@@ -148,7 +148,9 @@ fun PackDetailScreen(
                 },
                 containerColor = SpringMint,
                 shape = RoundedCornerShape(16.dp),
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier
+                    .windowInsetsPadding(WindowInsets.navigationBars)
+                    .padding(bottom = 16.dp)
             )
         }
     ) { innerPadding ->

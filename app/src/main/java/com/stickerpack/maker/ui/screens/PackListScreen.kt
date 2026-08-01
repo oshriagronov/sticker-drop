@@ -152,7 +152,7 @@ fun PackListScreen(
                         start = 24.dp,
                         end = 24.dp,
                         top = 16.dp,
-                        bottom = 100.dp // Content scrolls cleanly under floating overlay
+                        bottom = 120.dp // Content scrolls cleanly under floating overlay
                     ),
                     verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
@@ -190,6 +190,7 @@ fun PackListScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .windowInsetsPadding(WindowInsets.navigationBars)
                         .padding(horizontal = 16.dp, vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)

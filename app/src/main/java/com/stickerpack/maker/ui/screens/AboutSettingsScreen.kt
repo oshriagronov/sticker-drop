@@ -176,6 +176,7 @@ fun AboutSettingsScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .windowInsetsPadding(WindowInsets.navigationBars)
                         .padding(horizontal = 16.dp, vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)

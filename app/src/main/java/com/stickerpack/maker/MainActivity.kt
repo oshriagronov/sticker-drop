@@ -37,12 +37,15 @@ import com.stickerpack.maker.ui.theme.StickerPackMakerTheme
 import com.stickerpack.maker.ui.viewmodel.StickerViewModel
 import com.stickerpack.maker.util.StickerPackExporter
 
+import androidx.activity.enableEdgeToEdge
+
 class MainActivity : ComponentActivity() {
 
     private val viewModel: StickerViewModel by viewModels()
     private val pendingImportUri = mutableStateOf<Uri?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         // Clear debug logs each time app opens to ensure fresh logs for session
         StickerContentProvider.clearDebugLogs(this)
