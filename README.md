@@ -23,7 +23,7 @@
 ## 📐 Architecture & Tech Stack
 
 - **Language**: 100% Kotlin
-- **Min SDK**: 24 (Android 7.0 Nougat) | **Target SDK**: 35 (Android 15)
+- **Min SDK**: 24 (Android 7.0 Nougat) | **Target SDK**: 36 (Android 16)
 - **UI Framework**: Jetpack Compose (Material 3)
 - **Database / Persistence**: Room (`StickerDatabase`, `StickerPackDao`, `StickerDao`)
 - **Image Processing & Loading**: Coil (`io.coil-kt:coil-compose`), Android Bitmap / Canvas utilities
